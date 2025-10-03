@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    button{
+        color: red;
+        width: auto;
+        height: auto;
+    }
+</style>
+<body>
+
+    <div id="contenedor"> </div>
+    <h1 id="suma"></h1>
+
+  
+     <script src="js/jquery-3.7.1.min.js"></script>
+
+
+     <script>
+
+        $(document).ready(function(){
+
+
+           var  suma=0;
+           var total=0;
+          
+            for (let i = 0; i <10; i++) {
+                 numero=Math.round(Math.random()*100);
+             var boton= $("<button>");
+                boton.val(numero);
+                boton.text("Numero "+numero);
+                $("#contenedor").append(boton);
+                    boton.click(function(){
+                    suma+=parseInt($(this).val());
+                    $("#suma").text(suma);
+              
+                 })
+             
+                
+            }
+                 
+              
+   })
+    
+
+            </script>
+</body>
+</html>

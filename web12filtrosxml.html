@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .ups{
+    color:red
+  }
+</style>
+<body>
+    <h1>Filtros xml</h1>
+    <label for="">Introduzca ID</label>
+    <input type="text" id="cajaid">
+    <button id="botonatributo">Buscar por id</button>
+    <hr>
+    <label for="">introduzca localidad</label>
+    <input type="text" id="cajalocalidad">
+    <button id="botonlocalidad">Buscar localidad</button>
+    <h1 id="mensaje"></h1>
+    <ul id="listadepartamentos"></ul>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+     $(document).ready(function(){
+
+      $("#botonlocalidad").click(function(){
+
+                $.get("departamentos.xml",function(data){
+                
+                var localidad=$("#cajalocalidad").val();
+                var filtro="LOC:contains("+localidad+")";
+                var html="";
+           
+                $(data).find(filtro).each(function(){
+                   var cosa=$(this).text();
+                   if(cosa=="" || cosa ==null){
+                    html+="<p class='ups'> upsss no existe esa localidad <p/>";
+                   }else{
+html+="<li>"+cosa+"</li>";
+                   }
+                  
+
+                })
+                $("#listadepartamento").html(html);
+})
+              })
+
+               
+
+                
+        $("#botonatributo").click(function(){
+
+            $.get("documents/departamentos.xml",function(data){
+              console.log("hola")
+               var  id=$("#cajaid").val();
+               var filtro="DEPT[DEPT_NO="+ id +"]";
+               var nododept= $(data).find($(filtro));
+               var nombre=$(nododept).find("DNOMBRE").text();
+              
+
+               
+               var localidad=$(nododept).find("LOC").text();
+               $("#mensaje").text("Departamento: "+nombre+"\nlocalidad:"+localidad)
+
+            })
+
+        })
+})
+</script>
+</body>
+</html>

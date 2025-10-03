@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <label for="rango">Selecione el numero de checkbox</label>
+    <input type="range" id="rango" max="10" min="5">
+    <span id="valorrango">valor del rango</span>
+    <h1 id="resultado"> </h1>
+    <hr>
+    <div class="" id="contenedor">
+
+    </div>
+    <script src="js/jquery-3.7.1.min.js"></script>
+
+    <script>
+
+         $(document).ready(function(){
+            $("#rango").change(function(){
+                var numElementos=parseInt($(this).val());
+                $("#valorrango").text(numElementos);
+                $("#contenedor").text("")
+
+                for (let i = 0; i <=numElementos; i++) {
+                   
+                    var aleatorio=parseInt(Math.random()*500);
+                    var chk=$("<input>",{
+                        "type":"checkbox",
+                        "value":aleatorio
+                    })
+
+                    var label=$("<label>",{"text":aleatorio})
+                    $("#contenedor").append(chk)
+                    $("#contenedor").append(label)
+                      var resultado=0;
+                    chk.change(function(){
+                      
+                        var valor=parseInt($(this).val());
+
+                         if($(this).is(":checked")==true){
+                                
+                             resultado+=valor
+                        }else{
+                            resultado-=valor
+                         }
+                        $("#resultado").text(resultado);
+                    })
+                }
+
+            })
+         })
+    </script>
+</body>
+</html>

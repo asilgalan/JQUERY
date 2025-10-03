@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script src="js/jquery-3.7.1.min.js"></script>
+  <h1>Departamentos XML</h1>
+  <button id="botonleer">boton leer</button>
+  <ul id="lista">  </ul>
+
+<script>
+     $(document).ready(function(){
+
+        $("botonleer").click(function(){
+
+            $.get("documents/empleados.xml",function(data){
+              var html="";
+
+              $(data).find("APELLIDO").each(function(){
+
+                var apellido=$(this).val();
+
+                html+="<li>"+apellido +"</li>"
+              })
+              $("#lista").html(html);
+            })
+        })
+
+
+})
+</script>
+</body>
+</html>
