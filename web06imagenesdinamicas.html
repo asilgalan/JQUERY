@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    img{
+        width: 50%;
+        height: auto;
+        align-items: center;
+    }
+</style>
+<body>
+    
+    <input type="range" name="" max="20" min="1" id="rango">
+ <span id="total"></span>
+    <div id="contenedor"></div>
+     <script src="js/jquery-3.7.1.min.js"></script>
+
+
+     <script>
+
+        $(document).ready(function(){
+
+      
+
+             $("#rango").change(function(){
+            
+              var imagenes= $("#rango").val();
+                   var total=$("#total").text(imagenes); 
+            for (let i = 0; i <imagenes; i++) {
+                  
+          imagen= $("<img>").attr("src","imagenes/cascada.jpg")
+           $("#contenedor").append(imagen)
+         imagen.mouseover(function(){
+                $(this).css("width","100%")
+              })
+
+                imagen.mouseout(function(){
+                $(this).css("width","50%")
+              })
+              }
+             
+      
+
+             })
+
+     
+  })
+     </script>
+
+
+
+</body>
+</html>
