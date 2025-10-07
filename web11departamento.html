@@ -27,7 +27,7 @@
 
         $("#botonleer").click(function(){
  console.log("Leyendo23...");
-            $.get("departamentos.xml"),function(data){
+            $.get("departamentos.xml",function(data){
 
               console.log("Leyendo...");
               var html="";
@@ -45,7 +45,7 @@
 
               $("#tabladepartamentos tbody").html(html)
               
-            }
+            })
         })
 
 

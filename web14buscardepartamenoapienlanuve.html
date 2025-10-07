@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    
+ <table id="mensaje">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>localidad</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+
+  <script src="js/jquery-3.7.1.min.js"></script>
+<script>
+     $(document).ready(function(){
+
+        var html="";
+        $.get("https://apicruddepartamentosxml.azurewebsites.net/api/Departamentos",function(data){
+            console.log("LEYENDO...");
+            
+
+            $(data).find("Departamento").each(function(){
+                var id_depart=$(this).find("IdDepartamento").text();
+           
+                 var nombre=$(this).find("Nombre").text();
+                     
+                
+                 var localidad=$(this).find("Localidad").text();
+                  html+="<tr>"
+        
+                  html+="<td> "+ id_depart+"</td>"
+                  html+="<td> "+ nombre+"</td>"
+                  html+="<td> "+ localidad +"</td>"
+                  html+="</tr>";    
+                  
+             
+                
+        })
+        $("#mensaje tbody").html(html)
+
+            })
+
+                
+            
+ })
+
+</script>
+</body>
+</html>

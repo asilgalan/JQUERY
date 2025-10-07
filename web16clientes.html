@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+    <select name="" id="clientes">
+
+    </select>
+ <table id="mensaje">
+    <thead>
+        <tr>
+            <th>nombre</th>
+            <th>direccion</th>
+            <th>email</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+
+
+  <script src="js/jquery-3.7.1.min.js"></script>
+<script>
+     $(document).ready(function(){
+
+        $.get("https://apiclientesxml.azurewebsites.net/api/Clientes/GetClientesXML",function(data){
+   console.log("hhsa");
+            $(data).find("CLIENTE").each(function(){
+
+                
+                
+                var nombre=$(this).find("nombre").first().text();
+                console.log(nombre);
+                var id=$(this).attr("IDCLIENTE")
+                var option=$("<option>");
+
+                    option.val(id);
+                    option.text(nombre);
+
+                    $("#clientes").append(option);
+
+
+            })
+
+        })
+        
+  
+        $("#clientes").change(function(){
+              var html="";
+            var id=$(this).val();
+        $.get("https://apiclientesxml.azurewebsites.net/api/Clientes/GetClientesXML",function(data){
+ 
+             var filtro="CLIENTE[IDCLIENTE="+id+"]";
+
+                  var nodo=  $(data).find(filtro).first();
+                  var nombre=nodo.find("nombre").text();
+                  var direccion=nodo.find("direccion").text();
+                  var email=nodo.find("email").text();
+                   html+="<tr>"
+        
+                  html+="<td> "+ nombre+"</td>"
+                  html+="<td> "+ direccion+"</td>"
+                  html+="<td> "+ email +"</td>"
+                  html+="</tr>";    
+
+                 
+            $("#mensaje").html(html)
+
+        })
+        
+        })
+       
+})
+</script>
+</body>
+</html>

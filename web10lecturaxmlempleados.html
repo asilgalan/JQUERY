@@ -14,16 +14,18 @@
 <script>
      $(document).ready(function(){
 
-        $("botonleer").click(function(){
+        $("#botonleer").click(function(){
 
-            $.get("documents/empleados.xml",function(data){
+            $.get("empleados.xml",function(data){
+              console.log("leyendo");
+              
               var html="";
 
               $(data).find("APELLIDO").each(function(){
 
                 var apellido=$(this).val();
 
-                html+="<li>"+apellido +"</li>"
+                html+="<li>"+ apellido +"</li>"
               })
               $("#lista").html(html);
             })

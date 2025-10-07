@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+    <h1>Documento busqueda json</h1>
+
+    <label for="">Seleccione un jugador</label>
+    <select name="" id="jugadores">
+
+    </select>
+    <div class="" id="container">
+
+    </div>
+  <script src="js/jquery-3.7.1.min.js"></script>
+<script>
+     $(document).ready(function(){
+
+      
+            $.ajax({
+
+                url:"jugadores.json",
+                method:"GET",
+                dataType:"json",
+                success:function(data){
+
+                    $.each(data.jugadores,function(index,objecto){
+                        var nombre=objecto.nombre;
+                        var option=$("<option>")
+                            option.text(nombre)
+                            $("#jugadores").append(option)
+                    })
+                }
+
+                }
+            )
+              $("#jugadores").change(function(){
+
+                var name=$("#jugadores").val();
+
+                $.ajax({
+                    url:"jugadores.json",
+                method:"GET",
+                dataType:"json",
+                success:function(data){
+                    var html="";
+                    // primera forma
+                    // $.each(data.jugadores,function(index,objecto){
+                    
+                    //     if(objecto.nombre==name){
+                           
+                    //          html+="<h3>"+objecto.nombre+" </h3> "
+                    //         html+="<p>"+objecto.posicion+" </p> "
+                    //         html+="<img src='"+ objecto.imagen+"''>"
+
+
+                    //     }
+                    //  })
+                    
+                    var json_toarray=JSON.stringify(data.jugadores)
+                    var filtro=find_object(JSON.parse(json_toarray),{nombre:name})
+        
+                    console.log(filtro)
+                    html+="<h3>"+filtro+" </h3> "
+                          
+                        html+="<p>"+filtro.posicion+" </p> "
+                        html+="<img src='"+ filtro.imagen+"''>"
+                     $("#container").html(html)
+                }
+
+                })
+
+               
+        })
+
+})
+
+ function find_object(objecto,busqueda){
+    return objecto.filter(function(obj){
+        return Object.keys(busqueda).every(function(c){
+
+            return obj[c]==busqueda[c]
+        })
+    })
+ }
+</script>
+</body>
+</html>

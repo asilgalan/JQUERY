@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+    h3{
+        color:red;
+    }
+    img{
+        padding-top: 50px;
+        width: 250px;
+        height: 250px;
+    }
+</style>
+<body>
+
+    <h1>Clientes xml</h1>
+    <div class="contenedor" id="contenedor">
+
+      
+    </div>
+    <div id="contenedor2">
+       
+    </div>
+
+  <script src="js/jquery-3.7.1.min.js"></script>
+<script>
+     $(document).ready(function(){
+
+        $.get("https://apiclientesxml.azurewebsites.net/api/Clientes",function(data){
+
+            $(data).find("cliente").each(function(){
+
+                var nombre=$(this).find("nombre").first().text(); 
+                var email=$(this).find("email").first().text();
+                var imagen=$(this).find("imagen").first().text();
+                var id=$(this).find("IdCliente").first().text();
+
+                 var boton=$("<button>")
+                    boton.text(nombre)
+                    boton.val(id)
+                   
+
+            
+                    $("#contenedor").append(boton)
+
+
+                    boton.click(function(){
+
+                          if($(this).val()==id){
+
+                             $("#contenedor2").html("<h3> Nombre:"+ nombre+"</h3> <br> <h3> Email:"+ email+"</h3> <img src='"+imagen+"' style='wisth:150px'/>");
+                 
+                      
+                    }
+
+                    })
+                
+                
+            })
+        })
+
+
+})
+</script>
+</body>
+</html>
