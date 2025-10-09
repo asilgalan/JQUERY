@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+    button{
+         color:red;
+         cursor:pointer;
+        
+    }
+</style>
+<body>
+
+    <h2>Mostrar empleados en dicho departamento</h2>
+    <ul id="lista"></ul>
+
+
+     <table id="mensaje">
+    <thead>
+        <tr>
+            <th>Apellido</th>
+            <th>Oficio</th>
+            <th>Salario</th>
+            <th>Departamento</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+    </table>
+  <script src="js/jquery-3.7.1.min.js"></script>
+<script>
+
+    var urlemple="https://apiempleadosspgs.azurewebsites.net/";
+    var urldepart="https://apicruddepartamentospgs.azurewebsites.net/"
+     $(document).ready(function(){
+
+        loadDepartametos();
+
+})
+
+
+
+function loadDepartametos(){
+      var requestdepart="webresources/departamentos";
+      
+    $.ajax({
+
+        url:urldepart+requestdepart,
+        method:"GET",
+        contentType:"apliccation/json",
+        success:function(data){
+             alert("funcionando...")
+            $.each(data,function(a,b){
+                 
+                var li=$("<li>")
+                    var boton=$("<button>")
+                    
+                        boton.val(b.numero)
+                        boton.text("empleados")
+                   
+                     $("#lista").append(boton)
+                      li.text(b.nombre);
+                    $("#lista").append(li)
+
+                    boton.click(function(){
+                          alert("funcionando... click" )
+                        var id=$(this).val();
+                        var html="";
+                  var requestemple="api/Empleados/EmpleadosDepartamento/"+id
+                        $.ajax({
+                             url:urlemple+requestemple,
+                             method:"GET",
+                            contentType:"apliccation/json",
+                            success:function(data){
+
+                                $.each(data,function(a,b){
+
+                                       html+="<tr>"
+                                            html+="<td>"+ b.apellido+"</td>";
+                                            html+="<td>"+ b.oficio+"</td>";
+                                            html+="<td>"+ b.salario+"</td>";
+                                            html+="<td>"+ b.departamento+"</td>";
+                                 html+="</tr>"
+
+
+                                })
+                                $("#mensaje tbody").html(html)
+                            }
+                         })
+                    })
+            })
+            
+
+          
+
+        }
+  
+
+    })
+}
+</script>
+</body>
+</html>

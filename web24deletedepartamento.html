@@ -24,10 +24,34 @@ function getDepartamentos(){
         success:function(data){
             $.each(data,function(a,b){
             
-                html+="<li>"+ b.nombre+ " </li>  <button value='"+b.numero+"'>Eliminar </button>"
+                // html+="<li>"+ b.nombre+ " </li>  <button value='"+b.numero+"'>Eliminar </button>"
+                var li=$("<li>");
+                var boton=$("<boton>");
+                    boton.val(b.numero)
+                    boton.text(b.nombre)
+
+                li.text(b.nombre)
+                li.append(boton)
          
-          $("#lista").append(html)
+          $("#lista").append(li)
+          boton.click(function(){
+             var request= "webresources/departamentos/delete/"+valorboton;
+         
+            $.ajax({
+                url:url+request,
+                method:"DELETE",
+                success:function(){
+                    alert("bien")
+                    getDepartamentos()
+                },
+                error:function(){
+                    alert("nop")
+                }
             })
+            })
+          })
+
+         
 
            
         }
@@ -40,22 +64,7 @@ function getDepartamentos(){
         getDepartamentos();
 
 
-        $("button").click(function(){
-            var valorboton=$(this).val();
-            console.log(valorboton);
-            
-            var request= "webresources/departamentos/delete/"+valorboton;
-         
-            $.ajax({
-                url:url+request,
-                method:"DELETE",
-                success:function(){
-                    alert("bien")
-                    getDepartamentos()
-                }
-            })
-
-        })
+       
 })
 
 
